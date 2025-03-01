@@ -1,0 +1,153 @@
+{
+	"info": {
+		"_postman_id": "53d622c9-20dc-4841-ad7c-13ca775e24a9",
+		"name": "Marvel",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6710208"
+	},
+	"item": [
+		{
+			"name": "characters",
+			"item": [
+				{
+					"name": "FindAllCharacters",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/characters",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"characters"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "comics",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "series",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "10",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "0",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "comics",
+			"item": [
+				{
+					"name": "FindComicsByCharacterId",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/comics?characterId=1017100&limit=2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"comics"
+							],
+							"query": [
+								{
+									"key": "characterId",
+									"value": "1017100"
+								},
+								{
+									"key": "limit",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FindAllComics",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/comics?limit=5",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"comics"
+							],
+							"query": [
+								{
+									"key": "characterId",
+									"value": "1017100",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FindComicById",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/comics/82965",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"comics",
+								"82965"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
