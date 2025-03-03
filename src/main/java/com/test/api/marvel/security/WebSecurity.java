@@ -20,7 +20,6 @@ public class WebSecurity {
         return httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(config -> config.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(config -> config.anyRequest().permitAll())
                 .build();
     }
 
