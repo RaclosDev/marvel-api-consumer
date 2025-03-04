@@ -1,18 +1,19 @@
 package com.test.api.marvel.persistence.integration.marvel;
 
 import com.test.api.marvel.util.MD5Encoder;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@RequiredArgsConstructor
 @Component
 public class MarvelAPIConfig {
 
-    @Autowired
-    MD5Encoder md5Encoder;
+
+    private MD5Encoder md5Encoder;
 
     private long timestamp = System.currentTimeMillis();
 

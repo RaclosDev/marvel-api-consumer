@@ -5,21 +5,21 @@ import com.test.api.marvel.persistence.integration.marvel.dto.CharacterDto;
 import com.test.api.marvel.persistence.integration.marvel.dto.CharacterInfoDto;
 import com.test.api.marvel.persistence.integration.marvel.repository.CharacterRepository;
 import com.test.api.marvel.service.CharacterService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service
 public class CharacterServiceImpl implements CharacterService {
 
-    @Autowired
-    CharacterRepository characterRepository;
+    private CharacterRepository characterRepository;
 
     @Override
     public List<CharacterDto> findAll(MyPageable pageable, String name, ArrayList<?> comics, ArrayList<?> series) {
-        return characterRepository.findAll(pageable,name,comics,series);
+        return characterRepository.findAll(pageable, name, comics, series);
     }
 
     @Override

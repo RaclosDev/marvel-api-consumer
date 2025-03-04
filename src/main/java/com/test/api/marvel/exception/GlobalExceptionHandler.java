@@ -80,7 +80,7 @@ public class GlobalExceptionHandler {
             HttpServletRequest request,
             WebRequest webRequest) {
 
-        String message = null;
+        String message;
 
         if (e instanceof HttpClientErrorException.Forbidden) {
             message = "No tienes acceso a este recurso";

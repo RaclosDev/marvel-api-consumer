@@ -4,7 +4,7 @@ import com.test.api.marvel.dto.MyPageable;
 import com.test.api.marvel.persistence.integration.marvel.dto.CharacterDto;
 import com.test.api.marvel.persistence.integration.marvel.dto.CharacterInfoDto;
 import com.test.api.marvel.service.CharacterService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@RequiredArgsConstructor
 @RestController
 @RequestMapping("/characters")
 public class CharacterController {
 
-    @Autowired
     CharacterService characterService;
 
     @PreAuthorize("hasAnyAuthority('character:read-all')")

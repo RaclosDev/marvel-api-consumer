@@ -7,20 +7,19 @@ import com.test.api.marvel.persistence.integration.marvel.dto.ComicDto;
 import com.test.api.marvel.persistence.integration.marvel.mapper.ComicMapper;
 import com.test.api.marvel.service.HttpClientService;
 import jakarta.annotation.PostConstruct;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
 
+@RequiredArgsConstructor
 @Repository
 public class ComicRepository {
 
-    @Autowired
     private HttpClientService httpClientService;
 
-    @Autowired
     private MarvelAPIConfig marvelAPIConfig;
 
     @Value("${marvel.api.base-path}")

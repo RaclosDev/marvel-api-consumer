@@ -8,7 +8,7 @@ import com.test.api.marvel.persistence.integration.marvel.dto.CharacterInfoDto;
 import com.test.api.marvel.persistence.integration.marvel.mapper.CharacterMapper;
 import com.test.api.marvel.service.HttpClientService;
 import jakarta.annotation.PostConstruct;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
@@ -18,13 +18,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@RequiredArgsConstructor
 @Repository
 public class CharacterRepository {
 
-    @Autowired
     private MarvelAPIConfig marvelAPIConfig;
 
-    @Autowired
     private HttpClientService httpClientService;
 
     @Value("${marvel.api.base-path}")

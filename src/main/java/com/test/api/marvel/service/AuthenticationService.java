@@ -3,7 +3,7 @@ package com.test.api.marvel.service;
 import com.test.api.marvel.dto.security.LoginRequest;
 import com.test.api.marvel.dto.security.LoginResponse;
 import com.test.api.marvel.persistence.entity.User;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -17,20 +17,17 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@RequiredArgsConstructor
 @Service
 public class AuthenticationService {
 
-    @Autowired
-    private HttpSecurity http;
+    private final HttpSecurity http;
 
-    @Autowired
-    private UserDetailsService userDetailsService;
+    private final UserDetailsService userDetailsService;
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
 
-    @Autowired
-    private JwtService jwtService;
+    private final JwtService jwtService;
 
     public LoginResponse login(LoginRequest loginRequest) {
         UserDetails user = userDetailsService.loadUserByUsername(loginRequest.getUsername());

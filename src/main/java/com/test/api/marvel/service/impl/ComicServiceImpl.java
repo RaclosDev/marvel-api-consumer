@@ -4,16 +4,17 @@ import com.test.api.marvel.dto.MyPageable;
 import com.test.api.marvel.persistence.integration.marvel.dto.ComicDto;
 import com.test.api.marvel.persistence.integration.marvel.repository.ComicRepository;
 import com.test.api.marvel.service.ComicService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service
 public class ComicServiceImpl implements ComicService {
 
-    @Autowired
-    ComicRepository comicRepository;
+    private ComicRepository comicRepository;
 
     @Override
     public List<ComicDto> findAll(MyPageable pageable, Long characterId) {
