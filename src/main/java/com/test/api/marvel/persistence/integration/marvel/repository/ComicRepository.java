@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -30,12 +29,12 @@ public class ComicRepository {
     private String comicPath;
 
     @PostConstruct
-    private void setCharacterPath() {
-        comicPath = basePath + "/comics";
+    private void setPath() {
+        comicPath = basePath.concat("/").concat("comics");
     }
 
     public List<ComicDto> findAll(MyPageable pageable, Long characterId) {
-        Map<String, String> marvelQueryParams = new HashMap<>(marvelAPIConfig.getAuthParams());
+        Map<String, String> marvelQueryParams = getQueryParamsForFindAll(pageable, characterId);
 
         JsonNode response = httpClientService.doGet(comicPath, marvelQueryParams, JsonNode.class);
 
@@ -43,13 +42,13 @@ public class ComicRepository {
     }
 
     private Map<String, String> getQueryParamsForFindAll(MyPageable pageable, Long characterId) {
-        Map<String, String> marvelQueryParams = new HashMap<>(marvelAPIConfig.getAuthParams());
+        Map<String, String> marvelQueryParams = marvelAPIConfig.getAuthParams();
 
-        marvelQueryParams.put("offset", String.valueOf(pageable.offset()));
-        marvelQueryParams.put("limit", String.valueOf(pageable.limit()));
+        marvelQueryParams.put("offset", Long.toString(pageable.offset()));
+        marvelQueryParams.put("limit", Long.toString(pageable.limit()));
 
-        if (characterId != null) {
-            marvelQueryParams.put("characters", String.valueOf(characterId));
+        if (characterId != null && characterId > 0) {
+            marvelQueryParams.put("characters", Long.toString(characterId));
         }
 
         return marvelQueryParams;
@@ -57,13 +56,11 @@ public class ComicRepository {
 
 
     public ComicDto findById(Long comicId) {
+        Map<String, String> marvelQueryParams = marvelAPIConfig.getAuthParams();
 
-        Map<String, String> marvelQueryParams = new HashMap<>(marvelAPIConfig.getAuthParams());
-
-        String finalUrl = comicPath + "/" + comicId;
-
+        String finalUrl = comicPath.concat("/").concat(Long.toString(comicId));
         JsonNode response = httpClientService.doGet(finalUrl, marvelQueryParams, JsonNode.class);
 
-        return ComicMapper.toDto(response);
+        return ComicMapper.toDtoList(response).get(0);
     }
 }

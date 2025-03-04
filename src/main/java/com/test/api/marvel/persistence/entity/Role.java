@@ -1,5 +1,6 @@
 package com.test.api.marvel.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
@@ -17,6 +18,7 @@ public class Role implements GrantedAuthority {
     private RoleEnum name;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "role")
+    @JsonManagedReference  // Esto indica que esta relación será serializada
     private List<GrantedPermission> permissions;
 
     @Override
@@ -28,4 +30,9 @@ public class Role implements GrantedAuthority {
     public enum RoleEnum {
         CUSTOMER, AUDITOR
     }
+    @Override
+    public String toString() {
+        return "Role{id=" + id + ", name=" + name + "}";
+    }
+
 }

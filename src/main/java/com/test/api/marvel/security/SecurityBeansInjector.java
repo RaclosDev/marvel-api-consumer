@@ -18,10 +18,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SecurityBeansInjector {
 
     @Autowired
-    AuthenticationConfiguration authenticationConfiguration;
+    private AuthenticationConfiguration authenticationConfiguration;
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Bean
     public AuthenticationManager authenticationManager() throws Exception {
@@ -30,11 +30,10 @@ public class SecurityBeansInjector {
 
     @Bean
     public AuthenticationProvider authenticationProvider() {
-
-        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-        daoAuthenticationProvider.setUserDetailsService(userDetailsService(userRepository));
-        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
-        return daoAuthenticationProvider;
+        DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+        provider.setUserDetailsService(userDetailsService());
+        provider.setPasswordEncoder(passwordEncoder());
+        return provider;
     }
 
     @Bean
@@ -44,8 +43,8 @@ public class SecurityBeansInjector {
     }
 
     @Bean
-    public UserDetailsService userDetailsService(UserRepository userRepository) {
-        return username -> userRepository.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Username not found:" + username));
+    public UserDetailsService userDetailsService() {
+        return username -> userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Username not found [" + username + "]"));
     }
-
 }

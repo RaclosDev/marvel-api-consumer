@@ -34,8 +34,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
 
-        String jwt = authorization.split("")[1];
-        String subject = null;
+        String jwt = authorization.split(" ")[1].trim();
+        String subject;
 
         try {
             subject = jwtService.extractSubject(jwt);

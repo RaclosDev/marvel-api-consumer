@@ -1,5 +1,6 @@
 package com.test.api.marvel.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
@@ -17,11 +18,13 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = true)
     private String username;
     private String password;
 
     @ManyToOne
     @JoinColumn(name = "role_id")
+    @JsonIgnore
     private Role role;
 
     private boolean accountExpired;
@@ -32,19 +35,18 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-
         if (role == null) return new ArrayList<>();
+
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(role.getAuthority()));
 
         if (role.getPermissions() == null) return authorities;
 
-        role.getPermissions().forEach(
-                permission -> {
-                    String permissionName = permission.getPermission().getName();
+        role.getPermissions()
+                .forEach(each -> {
+                    String permissionName = each.getPermission().getName();
                     authorities.add(new SimpleGrantedAuthority(permissionName));
                 });
-
         return authorities;
     }
 
@@ -64,5 +66,9 @@ public class User implements UserDetails {
     public boolean isCredentialsNonExpired() {
         //return UserDetails.super.isCredentialsNonExpired();
         return !credentialsExpired;
+    }
+    @Override
+    public String toString() {
+        return "User{id=" + id + ", username='" + username + "', role=" + (role != null ? role.getName() : "null") + "}";
     }
 }

@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 public class AuthenticationService {
 
     @Autowired
-    private HttpSecurity httpSecurity;
+    private HttpSecurity http;
 
     @Autowired
     private UserDetailsService userDetailsService;
@@ -33,14 +33,17 @@ public class AuthenticationService {
     private JwtService jwtService;
 
     public LoginResponse login(LoginRequest loginRequest) {
-
         UserDetails user = userDetailsService.loadUserByUsername(loginRequest.getUsername());
 
-        Authentication authentication = new UsernamePasswordAuthenticationToken(user, loginRequest.getPassword(), user.getAuthorities());
+        Authentication authentication = new UsernamePasswordAuthenticationToken(
+                user, loginRequest.getPassword(), user.getAuthorities()
+        );
         authenticationManager.authenticate(authentication);
 
+        String jwt = jwtService.generateToken(user, generateExtraClaims(user));
+
         LoginResponse loginResponse = new LoginResponse();
-        loginResponse.setJwt(jwtService.generateToken(user, generateExtraClaims(user)));
+        loginResponse.setJwt(jwt);
 
         return loginResponse;
     }
@@ -48,18 +51,22 @@ public class AuthenticationService {
     private Map<String, Object> generateExtraClaims(UserDetails user) {
         Map<String, Object> extraClaims = new HashMap<>();
 
-        extraClaims.put("role", ((User) user).getRole().getName().name());
-        extraClaims.put("authorities", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()));
+        String roleName = ((User) user).getRole().getName().name();
+        extraClaims.put("role", roleName);
+        extraClaims.put("authorities", user.getAuthorities().stream()
+                .map(GrantedAuthority::getAuthority)
+                .collect(Collectors.toList()));
 
         return extraClaims;
     }
 
     public void logout() {
         try {
-            httpSecurity.logout(httpSecurityLogoutConfigurer ->
-                    httpSecurityLogoutConfigurer.deleteCookies("JSESSIONID").clearAuthentication(true).invalidateHttpSession(true));
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+            http.logout(logoutConfig -> logoutConfig.deleteCookies("JSESSIONID")
+                    .clearAuthentication(true)
+                    .invalidateHttpSession(true));
+        } catch (Exception exception) {
+            throw new RuntimeException(exception);
         }
     }
 }
