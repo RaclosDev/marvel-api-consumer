@@ -1,6 +1,6 @@
 package com.test.api.marvel.security;
 
-import com.test.api.marvel.filter.JwtAuthenticationFilter;
+import com.test.api.marvel.web.filter.JwtAuthenticationFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;

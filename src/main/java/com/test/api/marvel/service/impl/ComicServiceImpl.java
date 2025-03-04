@@ -14,7 +14,7 @@ import java.util.List;
 @Service
 public class ComicServiceImpl implements ComicService {
 
-    private ComicRepository comicRepository;
+    private final ComicRepository comicRepository;
 
     @Override
     public List<ComicDto> findAll(MyPageable pageable, Long characterId) {

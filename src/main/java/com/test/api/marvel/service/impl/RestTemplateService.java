@@ -19,7 +19,7 @@ import java.util.Map;
 @Service
 public class RestTemplateService implements HttpClientService {
 
-    private RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
 
     @Override
     public <T> T doGet(String endpoint, Map<String, String> queryParams, Class<T> responseType) {

@@ -22,9 +22,9 @@ import java.util.stream.Collectors;
 @Repository
 public class CharacterRepository {
 
-    private MarvelAPIConfig marvelAPIConfig;
+    private final MarvelAPIConfig marvelAPIConfig;
 
-    private HttpClientService httpClientService;
+    private final HttpClientService httpClientService;
 
     @Value("${marvel.api.base-path}")
     private String basePath;

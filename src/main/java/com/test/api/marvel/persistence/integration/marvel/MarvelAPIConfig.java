@@ -13,7 +13,7 @@ import java.util.Map;
 public class MarvelAPIConfig {
 
 
-    private MD5Encoder md5Encoder;
+    private final MD5Encoder md5Encoder;
 
     private long timestamp = System.currentTimeMillis();
 

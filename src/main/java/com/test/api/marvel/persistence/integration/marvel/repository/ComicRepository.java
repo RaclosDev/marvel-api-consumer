@@ -18,9 +18,9 @@ import java.util.Map;
 @Repository
 public class ComicRepository {
 
-    private HttpClientService httpClientService;
+    private final HttpClientService httpClientService;
 
-    private MarvelAPIConfig marvelAPIConfig;
+    private final MarvelAPIConfig marvelAPIConfig;
 
     @Value("${marvel.api.base-path}")
     private String basePath;

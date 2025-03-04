@@ -1,4 +1,4 @@
-package com.test.api.marvel.controller;
+package com.test.api.marvel.web.controller;
 
 import com.test.api.marvel.dto.MyPageable;
 import com.test.api.marvel.persistence.integration.marvel.dto.CharacterDto;
@@ -17,7 +17,7 @@ import java.util.List;
 @RequestMapping("/characters")
 public class CharacterController {
 
-    CharacterService characterService;
+    private final CharacterService characterService;
 
     @PreAuthorize("hasAnyAuthority('character:read-all')")
     @GetMapping

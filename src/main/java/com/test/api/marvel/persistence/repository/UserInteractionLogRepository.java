@@ -8,4 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface UserInteractionLogRepository extends JpaRepository<UserInteractionLog, Long> {
 
     Page<UserInteractionLog> findByUsername(Pageable pageable, String username);
+
 }

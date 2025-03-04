@@ -15,7 +15,7 @@ import java.util.List;
 @Service
 public class CharacterServiceImpl implements CharacterService {
 
-    private CharacterRepository characterRepository;
+    private final CharacterRepository characterRepository;
 
     @Override
     public List<CharacterDto> findAll(MyPageable pageable, String name, ArrayList<?> comics, ArrayList<?> series) {

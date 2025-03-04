@@ -1,4 +1,4 @@
-package com.test.api.marvel.filter;
+package com.test.api.marvel.web.filter;
 
 import com.test.api.marvel.service.JwtService;
 import io.jsonwebtoken.JwtException;
@@ -22,8 +22,8 @@ import java.io.IOException;
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    private JwtService jwtService;
-    private UserDetailsService userDetailsService;
+    private final JwtService jwtService;
+    private final UserDetailsService userDetailsService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
